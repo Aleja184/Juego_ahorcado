@@ -56,9 +56,28 @@ header img{
 }
 
 /* Aquí comienza los estilos de addWord.html*/
+.text{
+    margin: 0 0 40px 0;
+}
 .text textarea{
-    margin: 30px auto;
+    margin: 30px auto 5px;
     display: block;
     width: 80%;
+    height: 60vh;
+    border: none;
+    background: var(--body);
 }
 
+.save-cancel{
+    height: 0;
+}
+
+.text small{
+    margin: 10%;
+}
+
+::placeholder{
+    font-size: 30px;
+    color: var(--principal-color);
+    font-family: 'Inter', sans-serif;
+}
