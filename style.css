@@ -1,0 +1,64 @@
+:root{
+    --body:#E5E5E5;
+    --principal-color:#0A3871;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: var(--body);
+    font-family: 'Inter', sans-serif;
+}
+a{
+    text-decoration: none;
+}
+
+header img{
+    margin:15px 0 0 15px; 
+}
+
+.buttons{
+    display: grid;
+    padding: 100px;
+    height: 90vh;
+    align-content: center;
+    justify-content: center;
+}
+
+.buttons button{
+    height: 10vh;
+    width: 45vw;
+    margin: 10px;
+    font-size: 25px;
+    border-radius: 30px;
+    border: 2px solid var(--principal-color);  
+    transition: 1s;
+}
+
+.buttons button:hover{
+    transform: scale(110%);
+}
+
+.buttons .start{
+    background: var(--principal-color);
+}
+
+.buttons .start a{
+    color: white;
+}
+
+.buttons .add-word a{
+    color: var(--principal-color);
+}
+
+/* Aquí comienza los estilos de addWord.html*/
+.text textarea{
+    margin: 30px auto;
+    display: block;
+    width: 80%;
+}
+
