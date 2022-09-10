@@ -81,3 +81,15 @@ header img{
     color: var(--principal-color);
     font-family: 'Inter', sans-serif;
 }
+
+/* Aquí comienza los estilos de start.html*/
+.zona-dibujo{
+    display:grid;
+    justify-content: center;
+}
+canvas{
+    max-width: 500px;
+    height: 50vh;
+    min-width: 200px;
+    margin: 20px 0 20px 0;
+}
