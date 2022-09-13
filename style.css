@@ -47,12 +47,14 @@ header img{
     background: var(--principal-color);
 }
 
-.buttons .start a{
+.buttons a .start {
     color: white;
+    cursor: pointer;
 }
 
-.buttons .add-word a{
+.buttons a .add-word {
     color: var(--principal-color);
+    cursor: pointer;
 }
 
 /* Aquí comienza los estilos de addWord.html*/
@@ -66,6 +68,9 @@ header img{
     height: 60vh;
     border: none;
     background: var(--body);
+    font-size: 30px;
+    color: var(--principal-color);
+    font-family: 'Inter', sans-serif;
 }
 
 .save-cancel{
@@ -82,14 +87,16 @@ header img{
     font-family: 'Inter', sans-serif;
 }
 
-/* Aquí comienza los estilos de start.html*/
+/* Aquí comienza los estilos para empezar el juego*/
 .zona-dibujo{
-    display:grid;
-    justify-content: center;
+    display:none;
 }
 canvas{
     max-width: 500px;
     height: 50vh;
     min-width: 200px;
     margin: 20px 0 20px 0;
+}
+.buttons-start{
+    display: none;
 }
