@@ -47,12 +47,12 @@ header img{
     background: var(--principal-color);
 }
 
-.buttons a .start {
+.buttons .start {
     color: white;
     cursor: pointer;
 }
 
-.buttons a .add-word {
+.buttons .add-word {
     color: var(--principal-color);
     cursor: pointer;
 }
@@ -60,6 +60,7 @@ header img{
 /* Aquí comienza los estilos de addWord.html*/
 .text{
     margin: 0 0 40px 0;
+    display: none;
 }
 .text textarea{
     margin: 30px auto 5px;
@@ -75,6 +76,7 @@ header img{
 
 .save-cancel{
     height: 0;
+    display: none;
 }
 
 .text small{
@@ -89,9 +91,11 @@ header img{
 
 /* Aquí comienza los estilos para empezar el juego*/
 .zona-dibujo{
-    display:none;
+    display:grid;
+    justify-content: center;
 }
 canvas{
+    display: none;
     max-width: 500px;
     height: 50vh;
     min-width: 200px;

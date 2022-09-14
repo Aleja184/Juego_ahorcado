@@ -15,12 +15,41 @@
     <header><img src="./assets/Logo.png" alt="Logo de Alura" srcset=""></header>
     <!--/Header Logo de Alura-->
      <main>
-        <!--Botones-->
-        <section class="buttons">
-            <a href="start.html"><button type="button" class="start">Iniciar juego</button></a>
-            <a href="addWord.html"><button type="button" class="add-word">Agregar palabra nueva</button></a>
+        <!--Botones main-->
+        <section class="buttons" id="bottons-main">
+            <button type="button" class="start" id="start">Iniciar juego</button>
+            <button type="button" class="add-word" id="add-word">Agregar palabra nueva</button>
         </section>
-        <!--/Botones-->
+        <!--/Botones main-->
     </main>
+         <!--HTML para añadir la palabra-->
+            <!--Texto para añadir-->
+            <section class="text" id="text">
+                <textarea name="" id="add-word" cols="30" rows="10" placeholder="Ingrese una palabra"></textarea>
+                <small><img src="./assets/Admiracion.png" alt="Signo de admiración" srcset=""> Máx. de 8 letras</small>
+                </section>
+            <!--/Texto para añadir-->
+    
+            <!--Botones para añadir la palabra-->
+            <section class="buttons save-cancel" id="buttons-add">
+                <button type="button" class="start" id="saveStart">Guardar y empezar</button>
+                <button type="button" class="add-word cancel" >Cancelar</button>
+            </section>
+            <!--/Botones para añadir la palabra-->
+        <!--/HTML para añadir la palabra-->
+        <!--HTML para empezar el juego-->
+            <!--Zona del dibujo-->
+            <section class="draw-zone" id="draw-zone">
+                <canvas></canvas>
+            </section>
+            <!--/Zona del dibujo-->
+            <!--Botones para empezar el juego-->
+            <section class="buttons-start buttons save-cancel" id="buttons-game">
+                <button type="button" class="start" id="newGame">Nuevo    juego</button>
+                <button type="button"  class="add-word cancel" >Desistir</button>
+            </section>
+            <!--/Botones para empezar el juego-->
+        <!--/HTML para empezar el juego-->
+    <script src="./script.js"></script>
 </body>
 </html>
