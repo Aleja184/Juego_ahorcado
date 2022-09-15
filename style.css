@@ -90,7 +90,7 @@ header img{
 }
 
 /* Aquí comienza los estilos para empezar el juego*/
-.zona-dibujo{
+.draw-zone{
     display:grid;
     justify-content: center;
 }

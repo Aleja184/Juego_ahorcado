@@ -1,44 +1,54 @@
-let addWord = document.getElementById('add-word');
-let save = document.getElementById('save');
-let test = document.getElementById('prueba');
-let screen = document.querySelector('canvas');
-let buttonsGame = document.getElementById('buttons-game');
-let buttonsAdd = document.getElementById('buttons-add');
-let text = document.getElementById('text');
-let palabras = ["hola","ola","abeja","pajaro","perro","frijol"];
-save.onclick = saveWord;
-addWord.addEventListener('click',() =>  addWord.value = " ");
+//Botones del index.html
+const start = document.getElementById('start');
+const addWord = document.getElementById('add-word');
+const saveStart = document.getElementById('save-start');
+const cancel = document.getElementById('cancel');
+const desist = document.getElementById('desist');
+const newGame = document.getElementById('new-game');
 
-function showStartGame(){
-    screen.style.display = 'block';
-    buttonsGame.style.display = 'grid';
-    buttonsAdd.style.display = 'none';
-    text.style.display = 'none';
-}
+//Campo de texto del index.html
+const text = document.getElementById('text');
 
+//Secciones a las que se les va a cambiar el display según el botón que se oprima
+const buttonsMain = document.getElementById('buttons-main');
+const buttonsGame = document.getElementById('buttons-game');
+const buttonsAdd = document.getElementById('buttons-add');
+const drawZone = document.getElementById('draw-zone');
+
+//Canvas
+let screenCanvas = document.querySelector('canvas');
+let paintbrush = screenCanvas.getContext('2d');
+
+//Eventos botones
+addWord.onclick = showAddWord;
+start.onclick = showStartGame;
+cancel.onclick = buttonCancel;
+desist.onclick = buttonCancel;
+ 
+//Función para mostrar la sección de añadir palabra
 function showAddWord(){
-    screen.style.display= 'none';
+    buttonsMain.style.display = 'none';
+    drawZone.style.display = 'none';
     buttonsGame.style.display = 'none';
-    buttonsAdd.style.display = 'grid';
-    text.style.display = 'block';
+    text.style.display= 'block';
+    buttonsAdd.style.display='grid';
 }
 
-function saveWord(){ //Función para verificar que la palabra tenga 8 letras, y  guardarla en el arreglo palabras
-    for(let i=0;i<palabras.length;i++){
-        if(addWord.value == palabras[i]){
-            addWord.value = "Esta palabra ya se encuentra registrada";
-            break
-        }else{
-            if(addWord.value.length<=8){
-                palabras.push(addWord.value);
-                localStorage.setItem('myArray',JSON.stringify(palabras));
-                showStartGame();
-            }else{
-                addWord.value = "Palabra no permitida.Máximo 8 letras.";
-            }
-        }
-    }
+//Función para mostrar la sección de iniciar el juego
+function showStartGame(){
+    text.style.display= 'none';
+    buttonsAdd.style.display='none';
+    buttonsMain.style.display = 'none';
+    screenCanvas.style.display = 'block';
+    buttonsGame.style.display = 'grid';
+}
 
+function buttonCancel(){
+    text.style.display= 'none';
+    buttonsAdd.style.display='none';
+    buttonsMain.style.display = 'grid';
+    screenCanvas.style.display = 'none';
+    buttonsGame.style.display = 'none';
 }
 
 
