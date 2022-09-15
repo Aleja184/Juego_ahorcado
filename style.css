@@ -74,6 +74,7 @@ header img{
     font-family: 'Inter', sans-serif;
 }
 
+
 .save-cancel{
     height: 0;
     display: none;
@@ -85,7 +86,7 @@ header img{
 
 ::placeholder{
     font-size: 30px;
-    color: var(--principal-color);
+    color: #0b376dc4;
     font-family: 'Inter', sans-serif;
 }
 
