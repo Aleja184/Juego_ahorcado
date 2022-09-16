@@ -112,24 +112,7 @@ function saveWord(){
     }
 }
 
-let hangman = new Hangman();
 
-
-function drawHead(){
-    hangman.makeHead();
-}
-
-function drawBody(){
-    hangman.makeBody();
-}
-
-function drawLegLeft(){
-    hangman.makeLegLeft();
-}
-
-drawHead();
-drawBody();
-drawLegLeft();
 
 
 

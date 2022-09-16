@@ -15,29 +15,11 @@ class Hangman{
         paintbrush.stroke();
     }
 
-    makeBody(){
+    makeLine(width,longWidth,height,longHeight){
         paintbrush.beginPath();
-        paintbrush.moveTo(screenCanvas.width/1.5,25);
-        paintbrush.lineTo(screenCanvas.width/1.5,90);
+        paintbrush.moveTo(width,height);
+        paintbrush.lineTo(longWidth,longHeight);
         paintbrush.strokeStyle = "black";
         paintbrush.stroke();
-    }
-
-    makeLegLeft(){
-        paintbrush.beginPath();
-        paintbrush.moveTo(screenCanvas.width/1.5,90);
-        paintbrush.lineTo(screenCanvas.width/1.7,100);
-        paintbrush.strokeStyle = "black";
-        paintbrush.stroke();
-    }
-
-    makeLegRight(){
-        paintbrush.beginPath();
-        paintbrush.moveTo(screenCanvas.width/1.5,90);
-        paintbrush.lineTo(screenCanvas.width/1.2,100);
-        paintbrush.strokeStyle = "black";
-        paintbrush.stroke();
-    }
-    
-  
+    }  
 }
