@@ -16,9 +16,6 @@ const buttonsAdd = document.getElementById('buttons-add');
 const drawZone = document.getElementById('draw-zone');
 const text = document.getElementById('text');
 
-//Canvas
-let screenCanvas = document.querySelector('canvas');
-let paintbrush = screenCanvas.getContext('2d');
 
 //Eventos botones
 addWord.onclick = showAddWord;
@@ -115,7 +112,24 @@ function saveWord(){
     }
 }
 
+let hangman = new Hangman();
 
+
+function drawHead(){
+    hangman.makeHead();
+}
+
+function drawBody(){
+    hangman.makeBody();
+}
+
+function drawLegLeft(){
+    hangman.makeLegLeft();
+}
+
+drawHead();
+drawBody();
+drawLegLeft();
 
 
 
