@@ -11,7 +11,7 @@ class Hangman{
     makeHead(){   
         paintbrush.fillStyle = "black";
         paintbrush.beginPath();
-        paintbrush.arc(screenCanvas.width/1.5,15,10,0,360);
+        paintbrush.arc(screenCanvas.width/1.5,30,10,0,360);
         paintbrush.stroke();
     }
 

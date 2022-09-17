@@ -27,7 +27,7 @@ saveStart.onclick = saveWord;
 //Función para mostrar la sección de añadir palabra
 function showAddWord(){
     buttonsMain.style.display = 'none';
-    drawZone.style.display = 'none';
+    screenCanvas.style.display = 'none';
     buttonsGame.style.display = 'none';
     text.style.display= 'block';
     buttonsAdd.style.display='grid';
@@ -47,7 +47,7 @@ function buttonCancel(){
     text.style.display= 'none';
     buttonsAdd.style.display='none';
     buttonsMain.style.display = 'grid';
-    screenCanvas.style.display = 'none';
+    screenCanvas.style.visibility = 'none';
     buttonsGame.style.display = 'none';
 }
 
@@ -112,8 +112,70 @@ function saveWord(){
     }
 }
 
+//Objeto donde se instancia un nuevo Ahorcado
+let hangman = new Hangman();
+
+//Función donde se llama al método de hangman que hace la cabeza del muñeco
+function drawHead(){
+    hangman.makeHead();
+}
+//Función para dibujar el cuerpo
+function drawBody(){
+    hangman.makeLine(screenCanvas.width/1.5,screenCanvas.width/1.5,40,90);
+}
+
+//Función para dibujar la pierna izquierda
+function drawLeftLeg(){
+    hangman.makeLine(screenCanvas.width/1.5,screenCanvas.width/1.6,90,110);
+}
+
+//Función para dibujar la pierna derecha
+function drawRightLeg(){
+    hangman.makeLine(screenCanvas.width/1.5,screenCanvas.width/1.4,90,110);
+}
+
+//Función para dibujar la mano izquierda
+function drawLeftHand(){
+    hangman.makeLine(screenCanvas.width/1.5,screenCanvas.width/1.6,45,65);
+}
+
+//Función para dibujar la mano derecha
+function drawRightHand(){
+    hangman.makeLine(screenCanvas.width/1.5,screenCanvas.width/1.4,45,65);
+}
+
+//Función para dibujar la soga
+function drawRope(){
+    hangman.makeLine(screenCanvas.width/1.5,screenCanvas.width/1.5,5,20);
+}
+
+//Función para dibujar la línea superior
+function drawLineTop(){
+    hangman.makeLine(screenCanvas.width/1.5,screenCanvas.width/2,5,5);
+}
+
+//Función para dibujar la linea vertical
+function drawLineVertical(){
+    hangman.makeLine(screenCanvas.width/2,screenCanvas.width/2,5,120);
+}
+
+//Función para dibujar el soporte
+function drawLineHorizontal(){
+    hangman.makeLine(screenCanvas.width/2,screenCanvas.width/1.2,120,120);
+}
 
 
 
 
 
+//Llamado a las funciones
+drawHead();
+drawBody();
+drawLeftLeg();
+drawRightLeg();
+drawLeftHand();
+drawRightHand();
+drawRope();
+drawLineTop();
+drawLineVertical();
+drawLineHorizontal();
