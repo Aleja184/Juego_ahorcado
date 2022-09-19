@@ -7,7 +7,10 @@ const desist = document.getElementById('desist');
 const newGame = document.getElementById('new-game');
 
 //Campo de texto del index.html
-let inputWord = document.getElementById('textareaInputWord');
+const inputWord = document.getElementById('textareaInputWord');
+
+//Etiqueta p donde estará la palabra a divinar
+const wordGame = document.getElementById('word-game');
 
 //Secciones a las que se les va a cambiar el display según el botón que se oprima
 const buttonsMain = document.getElementById('buttons-main');
@@ -15,6 +18,7 @@ const buttonsGame = document.getElementById('buttons-game');
 const buttonsAdd = document.getElementById('buttons-add');
 const drawZone = document.getElementById('draw-zone');
 const text = document.getElementById('text');
+const word = document.getElementById('word');
 
 
 //Eventos botones
@@ -23,6 +27,10 @@ start.onclick = showStartGame;
 cancel.onclick = buttonCancel;
 desist.onclick = buttonCancel;
 saveStart.onclick = saveWord;
+
+/**
+ * @Aquí empieza el código de las funciones que nos van a mostrar cierto contenido dependiendo del botón que se pulse
+ */
  
 //Función para mostrar la sección de añadir palabra
 function showAddWord(){
@@ -31,6 +39,7 @@ function showAddWord(){
     buttonsGame.style.display = 'none';
     text.style.display= 'block';
     buttonsAdd.style.display='grid';
+    word.style.display = 'none';
 }
 
 //Función para mostrar la sección de iniciar el juego
@@ -40,6 +49,8 @@ function showStartGame(){
     buttonsMain.style.display = 'none';
     screenCanvas.style.display = 'block';
     buttonsGame.style.display = 'grid';
+    word.style.display = 'grid';
+    showWordRandom();
 }
 
 //Botón para mostar el index
@@ -47,11 +58,14 @@ function buttonCancel(){
     text.style.display= 'none';
     buttonsAdd.style.display='none';
     buttonsMain.style.display = 'grid';
-    screenCanvas.style.visibility = 'none';
+    screenCanvas.style.display = 'none';
     buttonsGame.style.display = 'none';
+    word.style.display = 'none';
 }
 
-//Aquí empieza el código para la sección de añadir la palabra
+/**
+ * @Aquí empieza el código para la sección de añadir la palabra
+ */
 
 //Evento para que cuando se haga click en el textarea se limpie
 inputWord.addEventListener('click',()=>{
@@ -60,9 +74,12 @@ inputWord.addEventListener('click',()=>{
 });
 
 //En este array se guardarán las palabras que se utilizarán en el juego
-let words = ['hola','ola','soldado','botella','perro','gato','frijol','persona','orangutan','signo','afirmacion']
+let arrayWords = ['hola','ola','soldado','botella','perro','gato','frijol','persona','orangutan','signo','afirmacion']
 //El array se guardará en un localStorage 
-localStorage.setItem('ArrayWords',JSON.stringify(words)); 
+localStorage.setItem('ArrayWords',JSON.stringify(arrayWords)); 
+
+//En este array se irán guardando las nuevas palabras que introduzca el usuario
+let arrayWordSave = arrayWords;
 
 
 //Función para obetener el array que hay en el localStorage
@@ -89,7 +106,7 @@ let validationWordInWords = false;
 //Función para guardar la nueva palabra en el array
 function saveWord(){
     //Obtendremos el array que se encuentra guardado en el LocalStorage
-    let arrayWordSave = getDataLocalStorage();
+    arrayWordSave = getDataLocalStorage();
     if(inputWord.value.length <= 8 && checkAccent(inputWord.value)){
         for(let i = 0;i<arrayWordSave.length;i++){
             if(inputWord.value.toLowerCase() == arrayWordSave[i]){
@@ -112,6 +129,10 @@ function saveWord(){
     }
 }
 
+
+/**
+ * @Aquí empieza el código para dibujar el muñeco
+ */
 //Objeto donde se instancia un nuevo Ahorcado
 let hangman = new Hangman();
 
@@ -179,3 +200,62 @@ drawRope();
 drawLineTop();
 drawLineVertical();
 drawLineHorizontal();
+
+/**
+ * @Aquí empieza el código para adivinar la palabra
+ */
+
+
+//Función que lanza aleatoriamente una posición en el array de las palabras
+function randomNumber(){
+    let number = Math.round(Math.random()*arrayWordSave.length);
+    return number;
+}
+
+//Función que retorna la palabra aleatoria
+function randomWord(){
+    let number = randomNumber();
+    return arrayWordSave[number]; 
+}
+
+//Variable donde se guardará la palabra aleatoria
+let wordRandom;
+
+//Número de fallos que se le permiten al usuario
+let trys = 10;
+
+//Array donde se guardará los guiones bajos según el número de carácteres de la palabra
+let arrayWordRandom = new Array();
+
+//Array donde se guardará cada letra de la palabra
+let arrayWordRandom2 = new Array();
+
+//Esta función guarda los guiones y caracteres en cada array, y muestra los guiones en pantalla de la palabra
+//a adivinar
+function showWordRandom(){
+    wordRandom = randomWord();
+    if(arrayWordRandom.length>0 && arrayWordRandom2.length>0){
+        arrayWordRandom.splice(0,arrayWordRandom.length);
+        arrayWordRandom2.splice(0,arrayWordRandom2.length);
+    }
+
+    for(let i =0;i<wordRandom.length;i++){
+        arrayWordRandom2.push(wordRandom.charAt(i));
+    }
+    for(let i = 0;i<wordRandom.length;i++){
+        arrayWordRandom.push('_');
+    }
+
+    wordGame.innerHTML = arrayWordRandom.join(' ');
+   
+}
+
+
+
+
+
+showWordRandom();
+
+newGame.onclick = showWordRandom;
+
+

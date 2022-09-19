@@ -102,6 +102,14 @@ canvas{
     min-width: 100px;
     margin: 20px 0 20px 0;
 }
+.word{
+    display: none;
+    justify-content: center;
+}
+
+.word .word-game{
+    font-size: 50px;
+}
 .buttons-start{
     display: none;
 }
