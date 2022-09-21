@@ -33,7 +33,7 @@ header img{
     height: 10vh;
     width: 45vw;
     margin: 10px;
-    font-size: 25px;
+    font-size: 1.5em;
     border-radius: 30px;
     border: 2px solid var(--principal-color);  
     transition: 1s;
@@ -94,12 +94,12 @@ header img{
 .draw-zone{
     display:grid;
     justify-content: center;
+    min-width: 100px;
 }
 canvas{
     display: none;
-    max-width: 500px;
+    width: 500px;
     height: 50vh;
-    min-width: 100px;
     margin: 20px 0 20px 0;
 }
 .word{
@@ -112,4 +112,11 @@ canvas{
 }
 .buttons-start{
     display: none;
+}
+
+
+@media (max-width:600px) {
+    canvas{
+        width: 90%;
+    }
 }
