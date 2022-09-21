@@ -21,19 +21,46 @@ const text = document.getElementById('text');
 const word = document.getElementById('word');
 
 
-//Eventos botones
-addWord.onclick = showAddWord;
-start.onclick = showStartGame;
-cancel.onclick = buttonCancel;
-desist.onclick = buttonCancel;
-saveStart.onclick = saveWord;
+//Número de fallos que se le permiten al usuario
+let trys;
+
+//Número de aciertos del usuario 
+let right;
+
+//Con esta variable podremos validar si la palabra ya se encuentra o no en el array
+let validationWordInWords = false;
+
+
+//Variable donde se guardará la palabra aleatoria
+let wordRandom;
+
+
+//Array donde se guardará los guiones bajos según el número de carácteres de la palabra
+let arrayWordRandom = new Array();
+
+//Array donde se guardará cada letra de la palabra
+let arrayWordRandom2 = new Array();
+
+//Variable booleana que valida si el usuario acertó o fallo 
+let validationWords;
+
+//En este array se guardarán las palabras que se utilizarán en el juego
+let arrayWords = ['hola','ola','soldado','botella','perro','gato','frijol','persona','orangutan','signo','afirmacion']
+//El array se guardará en un localStorage
+localStorage.setItem('ArrayWords',JSON.stringify(arrayWords));
+
+//En este array se irán guardando las nuevas palabras que introduzca el usuario
+let arrayWordSave = arrayWords;
+
+
 
 /**
  * @Aquí empieza el código de las funciones que nos van a mostrar cierto contenido dependiendo del botón que se pulse
  */
- 
+
 //Función para mostrar la sección de añadir palabra
 function showAddWord(){
+    inputWord.value = '';
     buttonsMain.style.display = 'none';
     screenCanvas.style.display = 'none';
     buttonsGame.style.display = 'none';
@@ -53,6 +80,7 @@ function showStartGame(){
     showWordRandom();
 }
 
+
 //Botón para mostar el index
 function buttonCancel(){
     text.style.display= 'none';
@@ -61,6 +89,8 @@ function buttonCancel(){
     screenCanvas.style.display = 'none';
     buttonsGame.style.display = 'none';
     word.style.display = 'none';
+    trys = -1; //El try y el right se ponen negativos para que una vez inicializado el juego, no aparezcan los alerts por los eventos del teclado.
+    right = -1;
 }
 
 /**
@@ -70,16 +100,10 @@ function buttonCancel(){
 //Evento para que cuando se haga click en el textarea se limpie
 inputWord.addEventListener('click',()=>{
     inputWord.value = '';
-    
+
 });
 
-//En este array se guardarán las palabras que se utilizarán en el juego
-let arrayWords = ['hola','ola','soldado','botella','perro','gato','frijol','persona','orangutan','signo','afirmacion']
-//El array se guardará en un localStorage 
-localStorage.setItem('ArrayWords',JSON.stringify(arrayWords)); 
 
-//En este array se irán guardando las nuevas palabras que introduzca el usuario
-let arrayWordSave = arrayWords;
 
 
 //Función para obetener el array que hay en el localStorage
@@ -95,14 +119,13 @@ function checkAccent(word){
         if(/[áéíóú]/.test(word.charAt(i))){
             validation = false;
             break;
-        }   
+        }
     }
     return validation;
-    
+
 }
 
-//Con esta variable podremos validar si la palabra ya se encuentra o no en el array
-let validationWordInWords = false;
+
 //Función para guardar la nueva palabra en el array
 function saveWord(){
     //Obtendremos el array que se encuentra guardado en el LocalStorage
@@ -127,6 +150,7 @@ function saveWord(){
         validationWordInWords = false;
         showStartGame();
     }
+    
 }
 
 
@@ -189,18 +213,6 @@ function drawLineHorizontal(){
 
 
 
-//Llamado a las funciones
-drawHead();
-drawBody();
-drawLeftLeg();
-drawRightLeg();
-drawLeftHand();
-drawRightHand();
-drawRope();
-drawLineTop();
-drawLineVertical();
-drawLineHorizontal();
-
 /**
  * @Aquí empieza el código para adivinar la palabra
  */
@@ -215,21 +227,19 @@ function randomNumber(){
 //Función que retorna la palabra aleatoria
 function randomWord(){
     let number = randomNumber();
-    return arrayWordSave[number]; 
+    return arrayWordSave[number];
 }
 
-//Variable donde se guardará la palabra aleatoria
-let wordRandom;
 
-//Número de fallos que se le permiten al usuario
-let trys = 10;
 
-//Array donde se guardará los guiones bajos según el número de carácteres de la palabra
-let arrayWordRandom = new Array();
 
-//Array donde se guardará cada letra de la palabra
-let arrayWordRandom2 = new Array();
 
+//Función para limpiar el canvas 
+function clearCanvas(context, canvas) { 
+    context.clearRect(0, 0, canvas.width, canvas.height);
+     let w = canvas.width; 
+     canvas.width = w; 
+}
 //Esta función guarda los guiones y caracteres en cada array, y muestra los guiones en pantalla de la palabra
 //a adivinar
 function showWordRandom(){
@@ -247,15 +257,118 @@ function showWordRandom(){
     }
 
     wordGame.innerHTML = arrayWordRandom.join(' ');
-   
+    trys = 10;
+    right = 0;
+    clearCanvas(paintbrush,screenCanvas);
+    document.onkeydown = hangmanGame; //Se llaman a los eventos aquí para que se inicialice cuando se aprete el botón que inicia el juego
+    document.onkeyup = validationTrys;
+
+
+}
+
+
+
+//Función que lleva la lógica del juego
+function hangmanGame(event){
+    let wordKeyPress = event.key;   
+    validationWords = false;
+     for(let i = 0; i<arrayWordRandom2.length;i++){
+         if(wordKeyPress == arrayWordRandom2[i]){
+             arrayWordRandom[i] = arrayWordRandom2[i];
+             arrayWordRandom2[i] = ' ';
+             wordGame.innerHTML = arrayWordRandom.join(' ');
+             validationWords = true;
+             right++;
+         }
+     }
+  
+
+}
+
+
+
+//Función que se ejecuta cuando se pierde el juego, la cual muestra una alert y inicializar de nuevo el juego
+function loseGame(){
+    swal('','Perdiste','error')
+    .then(() =>{
+        this.showWordRandom();
+    })
+
+}
+
+
+//Función que se ejecuta cuando se gana el juego, la cual muestra una alert
+function winGame(){
+    swal('','Ganaste','success');
+}
+
+//Esta función valida los aciertos y fallos del usario, y responde a ellos dibujando el ahorcado y con un alert
+function validationTrys(){
+    if(!validationWords){
+        trys--;
+    }
+    switch(trys){
+        case 9:
+            drawLineHorizontal();
+        break;
+
+        case 8:
+            drawLineVertical();
+        break;
+
+        case 7:
+            drawLineTop();
+        break;
+
+        case 6: 
+            drawRope();
+        break;
+
+        case 5:
+            drawHead();
+        break;
+        
+        case 4:
+            drawBody();
+        break;
+        
+        case 3:
+            drawLeftHand();
+        break;
+
+        case 2:
+            drawRightHand();
+        break;
+
+        case 1:
+            drawRightLeg();
+        break;
+
+        case 0:
+            drawLeftLeg();
+            loseGame();
+        break;
+    }
+
+    if(right == wordRandom.length){
+        winGame();
+    }
+    
 }
 
 
 
 
-
-showWordRandom();
-
+//Llamando a la función que muestra la palabra random ,inicializa las variables trys y right y limpia el canvas
 newGame.onclick = showWordRandom;
+
+//Eventos botones que muestran las secciones
+addWord.onclick = showAddWord;
+start.onclick = showStartGame;
+cancel.onclick = buttonCancel;
+desist.onclick = buttonCancel;
+
+//Botón que guarda la palabra que agrega el usuario
+saveStart.onclick = saveWord;
 
 

@@ -6,7 +6,6 @@ let screenCanvas = document.querySelector('canvas');
 let paintbrush = screenCanvas.getContext('2d');
 
 //Clase donde se creará todo lo que contiene el muñeco
-
 class Hangman{
     makeHead(){   
         paintbrush.fillStyle = "black";
