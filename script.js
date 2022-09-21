@@ -45,7 +45,8 @@ let arrayWordRandom2 = new Array();
 let validationWords;
 
 //En este array se guardarán las palabras que se utilizarán en el juego
-let arrayWords = ['hola','ola','soldado','botella','perro','gato','frijol','persona','orangutan','signo','afirmacion']
+let arrayWords = ['hola','ola','soldado','botella','perro','gato','frijol','persona','orangutan','signo','afirmacion',
+'bajo','guitarra','pequeño','largo','bastón','arma','perfume']
 //El array se guardará en un localStorage
 localStorage.setItem('ArrayWords',JSON.stringify(arrayWords));
 
