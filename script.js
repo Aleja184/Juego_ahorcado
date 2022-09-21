@@ -32,7 +32,7 @@ let validationWordInWords = false;
 
 
 //Variable donde se guardará la palabra aleatoria
-let wordRandom;
+let wordRandom = 'otorrinolaringolo';
 
 
 //Array donde se guardará los guiones bajos según el número de carácteres de la palabra
