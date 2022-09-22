@@ -277,9 +277,13 @@ function showWordRandom(){
     trys = 10;
     right = 0;
     clearCanvas(paintbrush,screenCanvas);
-    document.onkeydown = hangmanGame; //Se llaman a los eventos aquí para que se inicialice cuando se aprete el botón que inicia el juego
+    //Se llaman a los eventos aquí para que se inicialice cuando se aprete el botón que inicia el juego
     document.onkeyup = validationTrys;
-
+    if(screen.width<=820){
+        hangmanGameMobile();
+    }else{
+        document.onkeydown = hangmanGame; 
+    }
 
 }
 
@@ -321,13 +325,9 @@ function hangmanGameMobile(){
 
 }
 
-function validationMobile(){
-    if(screen.width<=850){
-        hangmanGameMobile();
-    }
-}
 
-validationMobile();
+
+
 
 
 
