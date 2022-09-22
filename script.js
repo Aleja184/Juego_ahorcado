@@ -250,7 +250,6 @@ function randomWord(){
 
 
 
-
 //Función para limpiar el canvas 
 function clearCanvas(context, canvas) { 
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -260,6 +259,7 @@ function clearCanvas(context, canvas) {
 //Esta función guarda los guiones y caracteres en cada array, y muestra los guiones en pantalla de la palabra
 //a adivinar
 function showWordRandom(){
+    
     wordRandom = randomWord();
     if(arrayWordRandom.length>0 && arrayWordRandom2.length>0){
         arrayWordRandom.splice(0,arrayWordRandom.length);
@@ -277,15 +277,29 @@ function showWordRandom(){
     trys = 10;
     right = 0;
     clearCanvas(paintbrush,screenCanvas);
-    //Se llaman a los eventos aquí para que se inicialice cuando se aprete el botón que inicia el juego
+    //Se llama a la función que escoge las funciones que se utilizarán dependiendo del tamaño de la pantalla
+    chooseFunction();
+
+}
+
+//Escoge la función a utilizar dependiendo del tamaño de la pantalla
+function chooseFunction(){
     if(screen.width<=820){
+        cleanAndFocusInput();
+        inputWordsUser.onfocus = () =>{
+            inputWordsUser.value = '';
+        }
         inputWordsUser.onblur = () =>{
             if(inputWordsUser.value.length==1){
                 hangmanGameMobile();
-                validationTrysMobile();
+                validationTrys();
             }else if(inputWordsUser.value.length>=2){
                 swal('','Digite una sola letra','error')
-                .then(inputWordsUser.value = ' ')
+                .then(() =>{
+                    cleanAndFocusInput();
+                });
+                
+
             }
         }
         
@@ -293,12 +307,15 @@ function showWordRandom(){
         document.onkeydown = hangmanGame; 
         document.onkeyup = validationTrys;
     }
-
 }
 
+//Limpia y enfoca el input
+function cleanAndFocusInput(){
+    inputWordsUser.value = '';
+    inputWordsUser.focus()
+}
 
-
-//Función que lleva la lógica del juego
+//Función que lleva la lógica del juego 
 function hangmanGame(event){
     let wordKeyPress = event.key;   
     validationWords = false;
@@ -315,6 +332,7 @@ function hangmanGame(event){
 
 }
 
+//Función que lleva la lógica del juego para dispositivos mobile
 function hangmanGameMobile(){
     let word = inputWordsUser.value;
     validationWords = false;
@@ -330,59 +348,6 @@ function hangmanGameMobile(){
 
 }
 
-function validationTrysMobile(){
-    if(!validationWords){
-        trys--;
-    }
-    switch(trys){
-        case 9:
-            drawLineHorizontal();
-        break;
-
-        case 8:
-            drawLineVertical();
-        break;
-
-        case 7:
-            drawLineTop();
-        break;
-
-        case 6: 
-            drawRope();
-        break;
-
-        case 5:
-            drawHead();
-        break;
-        
-        case 4:
-            drawBody();
-        break;
-        
-        case 3:
-            drawLeftHand();
-        break;
-
-        case 2:
-            drawRightHand();
-        break;
-
-        case 1:
-            drawRightLeg();
-        break;
-
-        case 0:
-            drawLeftLeg();
-            loseGame();
-            inputWordsUser.value = '';
-        break;
-    }
-
-    if(right == wordRandom.length){
-        winGame();
-        inputWordsUser.value = '';
-    }
-}
 
 
 
@@ -400,7 +365,10 @@ function loseGame(){
 
 //Función que se ejecuta cuando se gana el juego, la cual muestra una alert
 function winGame(){
-    swal('','Ganaste','success');
+    swal('','Ganaste','success')
+    .then(() =>{
+        this.showWordRandom();
+    })
 }
 
 //Esta función valida los aciertos y fallos del usario, y responde a ellos dibujando el ahorcado y con un alert
