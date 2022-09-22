@@ -12,6 +12,8 @@ const inputWord = document.getElementById('textareaInputWord');
 //Etiqueta p donde estará la palabra a divinar
 const wordGame = document.getElementById('word-game');
 
+wordGame.focus();
+
 //Secciones a las que se les va a cambiar el display según el botón que se oprima
 const buttonsMain = document.getElementById('buttons-main');
 const buttonsGame = document.getElementById('buttons-game');
@@ -19,6 +21,7 @@ const buttonsAdd = document.getElementById('buttons-add');
 const drawZone = document.getElementById('draw-zone');
 const text = document.getElementById('text');
 const word = document.getElementById('word');
+
 
 
 //Número de fallos que se le permiten al usuario
@@ -79,6 +82,7 @@ function showStartGame(){
     buttonsGame.style.display = 'grid';
     word.style.display = 'grid';
     showWordRandom();
+    
 }
 
 
