@@ -302,6 +302,33 @@ function hangmanGame(event){
 
 }
 
+function hangmanGameMobile(){
+    let word = inputWordsUser.value;
+    validationWords = false;
+    if(word.length>2){
+        swal('','Digite una sola letra','error')
+        .then(word = '')
+    }
+    for(let i = 0; i<arrayWordRandom2.length;i++){
+        if(word == arrayWordRandom2[i]){
+            arrayWordRandom[i] = arrayWordRandom2[i];
+            arrayWordRandom2[i] = ' ';
+            wordGame.innerHTML = arrayWordRandom.join(' ');
+            validationWords = true;
+            right++;
+        }
+    }
+
+}
+
+function validationMobile(){
+    if(screen.width<=850){
+        hangmanGameMobile();
+    }
+}
+
+validationMobile();
+
 
 
 //Función que se ejecuta cuando se pierde el juego, la cual muestra una alert y inicializar de nuevo el juego
@@ -364,11 +391,13 @@ function validationTrys(){
         case 0:
             drawLeftLeg();
             loseGame();
+            inputWordsUser.value = '';
         break;
     }
 
     if(right == wordRandom.length){
         winGame();
+        inputWordsUser.value = '';
     }
     
 }
