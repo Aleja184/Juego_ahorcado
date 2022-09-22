@@ -278,11 +278,20 @@ function showWordRandom(){
     right = 0;
     clearCanvas(paintbrush,screenCanvas);
     //Se llaman a los eventos aquí para que se inicialice cuando se aprete el botón que inicia el juego
-    document.onkeyup = validationTrys;
     if(screen.width<=820){
-        hangmanGameMobile();
+        inputWordsUser.onblur = () =>{
+            if(inputWordsUser.value.length==1){
+                hangmanGameMobile();
+                validationTrysMobile();
+            }else if(inputWordsUser.value.length>=2){
+                swal('','Digite una sola letra','error')
+                .then(inputWordsUser.value = ' ')
+            }
+        }
+        
     }else{
         document.onkeydown = hangmanGame; 
+        document.onkeyup = validationTrys;
     }
 
 }
@@ -309,10 +318,6 @@ function hangmanGame(event){
 function hangmanGameMobile(){
     let word = inputWordsUser.value;
     validationWords = false;
-    if(word.length>2){
-        swal('','Digite una sola letra','error')
-        .then(word = '')
-    }
     for(let i = 0; i<arrayWordRandom2.length;i++){
         if(word == arrayWordRandom2[i]){
             arrayWordRandom[i] = arrayWordRandom2[i];
@@ -325,7 +330,59 @@ function hangmanGameMobile(){
 
 }
 
+function validationTrysMobile(){
+    if(!validationWords){
+        trys--;
+    }
+    switch(trys){
+        case 9:
+            drawLineHorizontal();
+        break;
 
+        case 8:
+            drawLineVertical();
+        break;
+
+        case 7:
+            drawLineTop();
+        break;
+
+        case 6: 
+            drawRope();
+        break;
+
+        case 5:
+            drawHead();
+        break;
+        
+        case 4:
+            drawBody();
+        break;
+        
+        case 3:
+            drawLeftHand();
+        break;
+
+        case 2:
+            drawRightHand();
+        break;
+
+        case 1:
+            drawRightLeg();
+        break;
+
+        case 0:
+            drawLeftLeg();
+            loseGame();
+            inputWordsUser.value = '';
+        break;
+    }
+
+    if(right == wordRandom.length){
+        winGame();
+        inputWordsUser.value = '';
+    }
+}
 
 
 
@@ -391,13 +448,11 @@ function validationTrys(){
         case 0:
             drawLeftLeg();
             loseGame();
-            inputWordsUser.value = '';
         break;
     }
 
     if(right == wordRandom.length){
         winGame();
-        inputWordsUser.value = '';
     }
     
 }
