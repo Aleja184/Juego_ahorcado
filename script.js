@@ -5,6 +5,7 @@ const saveStart = document.getElementById('save-start');
 const cancel = document.getElementById('cancel');
 const desist = document.getElementById('desist');
 const newGame = document.getElementById('new-game');
+const check = document.getElementById('check');
 
 //Campo de texto del index.html
 const inputWord = document.getElementById('textareaInputWord');
@@ -289,7 +290,7 @@ function chooseFunction(){
         inputWordsUser.onfocus = () =>{
             inputWordsUser.value = '';
         }
-        inputWordsUser.onblur = () =>{
+        check.onclick = () =>{
             if(inputWordsUser.value.length==1){
                 hangmanGameMobile();
                 validationTrys();
@@ -337,7 +338,7 @@ function hangmanGameMobile(){
     let word = inputWordsUser.value;
     validationWords = false;
     for(let i = 0; i<arrayWordRandom2.length;i++){
-        if(word == arrayWordRandom2[i]){
+        if(word.toLowerCase() == arrayWordRandom2[i]){
             arrayWordRandom[i] = arrayWordRandom2[i];
             arrayWordRandom2[i] = ' ';
             wordGame.innerHTML = arrayWordRandom.join(' ');
