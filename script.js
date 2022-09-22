@@ -12,7 +12,9 @@ const inputWord = document.getElementById('textareaInputWord');
 //Etiqueta p donde estará la palabra a divinar
 const wordGame = document.getElementById('word-game');
 
-wordGame.focus();
+//input donde el usuario introducirá la letra en los dispositivos pequeños
+const inputWordsUser = document.getElementById('input-words-user');
+
 
 //Secciones a las que se les va a cambiar el display según el botón que se oprima
 const buttonsMain = document.getElementById('buttons-main');
@@ -21,7 +23,7 @@ const buttonsAdd = document.getElementById('buttons-add');
 const drawZone = document.getElementById('draw-zone');
 const text = document.getElementById('text');
 const word = document.getElementById('word');
-
+const inputWords = document.getElementById('input-words');
 
 
 //Número de fallos que se le permiten al usuario
@@ -62,6 +64,13 @@ let arrayWordSave = arrayWords;
  * @Aquí empieza el código de las funciones que nos van a mostrar cierto contenido dependiendo del botón que se pulse
  */
 
+function showInputWord(){
+    if(screen.width <= 820){
+        inputWords.style.display = 'grid';
+    }else{
+        inputWords.style.display = 'none';
+    }
+}
 //Función para mostrar la sección de añadir palabra
 function showAddWord(){
     inputWord.value = '';
@@ -71,6 +80,7 @@ function showAddWord(){
     text.style.display= 'block';
     buttonsAdd.style.display='grid';
     word.style.display = 'none';
+    inputWords.style.display = 'none';
 }
 
 //Función para mostrar la sección de iniciar el juego
@@ -82,6 +92,7 @@ function showStartGame(){
     buttonsGame.style.display = 'grid';
     word.style.display = 'grid';
     showWordRandom();
+    showInputWord();
     
 }
 
@@ -94,6 +105,7 @@ function buttonCancel(){
     screenCanvas.style.display = 'none';
     buttonsGame.style.display = 'none';
     word.style.display = 'none';
+    inputWords.style.display = 'none';
     trys = -1; //El try y el right se ponen negativos para que una vez inicializado el juego, no aparezcan los alerts por los eventos del teclado.
     right = -1;
 }
