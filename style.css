@@ -44,14 +44,14 @@ header img{
     transform: scale(110%);
 }
 
- .start{
+.button-start{
     background: var(--principal-color);
     color: white;
     cursor: pointer
 }
 
 
-.buttons .add-word {
+.buttons .button-addWord {
     color: var(--principal-color);
     cursor: pointer;
 }

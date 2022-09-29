@@ -93,8 +93,7 @@ function showStartGame(){
     buttonsGame.style.display = 'grid';
     word.style.display = 'grid';
     showWordRandom();
-    showInputWord();
-    
+    showInputWord();   
 }
 
 
