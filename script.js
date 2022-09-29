@@ -356,7 +356,7 @@ function hangmanGameMobile(){
 
 //Función que se ejecuta cuando se pierde el juego, la cual muestra una alert y inicializar de nuevo el juego
 function loseGame(){
-    swal('','Perdiste','error')
+    swal('','Perdiste, la palabra era: ' + wordRandom,'error')
     .then(() =>{
         this.showWordRandom();
     })
